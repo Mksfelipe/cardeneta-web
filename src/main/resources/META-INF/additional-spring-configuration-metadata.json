@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  },
+  {
+    "name": "cardeneta.app.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtSecret'"
+  },
+  {
+    "name": "cardeneta.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtExpirationMs'"
+  },
+  {
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  }
+]}{
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  }
+]}{
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  }
+]}{
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  }
+]}{
+    "name": "cardeneta.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'cardeneta.app.jwtCookieName'"
+  }
+]}
