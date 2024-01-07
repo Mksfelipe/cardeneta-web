@@ -1,6 +1,7 @@
 ALTER SEQUENCE cardeneta.roles_id_seq RESTART WITH 1;
 ALTER SEQUENCE cardeneta.users_id_seq RESTART WITH 1;
 ALTER SEQUENCE cardeneta.account_id_seq RESTART WITH 1;
+ALTER SEQUENCE cardeneta.transaction_id_seq RESTART WITH 1;
 
 DELETE FROM cardeneta.transaction;
 DELETE FROM cardeneta.user_roles;

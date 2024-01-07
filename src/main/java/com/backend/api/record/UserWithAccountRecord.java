@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.backend.domain.model.Account;
 import com.backend.domain.model.User;
 
-	public record UserAndAccountRecord (
+	public record UserWithAccountRecord (
 	        Long id,
 	        String firstName,
 	        String lastName,
@@ -17,7 +17,7 @@ import com.backend.domain.model.User;
 	        Account account
 	) {
 		
-	    public UserAndAccountRecord(User user) {
+	    public UserWithAccountRecord(User user) {
 	        this(
 	                user.getId(),
 	                user.getFirstName(),

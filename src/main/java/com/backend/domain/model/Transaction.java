@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.backend.domain.model.converter.BooleanConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -41,7 +42,11 @@ public class Transaction {
 	
 	@Convert(converter = BooleanConverter.class)
 	private Boolean paid = false;
+	
+	@Convert(converter = BooleanConverter.class)
+	private Boolean active = true;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	private Account account;

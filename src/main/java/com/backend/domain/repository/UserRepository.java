@@ -12,15 +12,18 @@ import com.backend.domain.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	@Query("SELECT u FROM User u WHERE u.cpf = :cpf")
+	@Query("SELECT u FROM User u JOIN FETCH u.account WHERE u.cpf = :cpf")
 	Optional<User> findByCpf(@Param("cpf") String cpf);	
 	
-	@Query("SELECT u FROM User u")
+	@Query("SELECT u FROM User u WHERE u.active = true")
 	Page<User> findAll(Pageable pageable);
 
 	Boolean existsByEmail(String email);
 	
 	Boolean existsByCpf(String cpf);
+	
+	@Query("SELECT u FROM User u WHERE CONCAT(u.firstName, ' ', u.lastName) ILIKE %:fullName%")
+    Page<User> searchByFullName(@Param("fullName") String fullName, Pageable pageable);
 	
 	@Query("SELECT u FROM User u JOIN FETCH u.account WHERE u.id = :id")
 	Optional<User> findById(Long id);

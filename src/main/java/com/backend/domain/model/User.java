@@ -25,10 +25,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +36,7 @@ import lombok.Setter;
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email") })
 public class User {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -49,13 +47,8 @@ public class User {
 	@Column(name = "lastName")
 	private String lastName;
 	
-	@NotBlank
-	@Size(max = 50)
-	@Email
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
 	private String password;
 
 	@CreationTimestamp
@@ -73,13 +66,16 @@ public class User {
 
 	private String contact;
 
+	@JsonIgnore
+	@NotNull
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private Account account;
 
+	@NotNull
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-
+	
 }

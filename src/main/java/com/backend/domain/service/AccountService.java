@@ -19,6 +19,6 @@ public class AccountService {
 	
 	private Account findByAccount(Long id) {
 		return accountRepository.findById(id)
-				.orElseThrow(() -> new AccountNotFoundException(String.format("user not found by ID: %d", id)));
+				.orElseThrow(() -> new AccountNotFoundException(String.format("Account not found by ID: %d", id)));
 	}
 }

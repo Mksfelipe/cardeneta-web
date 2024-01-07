@@ -35,7 +35,7 @@ public class UserService {
 	private RoleRepository roleRepository;
 	
 	@Autowired
-	ModelMapper mapper;
+	private ModelMapper mapper;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -44,9 +44,16 @@ public class UserService {
 		return userRepository.findAll(pageable);
 	}
 	
-	@Transactional
+	public Page<User> searchUsersByFullName(String fullName, Pageable pageable) {
+        return userRepository.searchByFullName(fullName, pageable);
+    }
+	
 	public User findbyId(Long id) {
 		return findByUser(id);
+	}
+	
+	public User findbyCpf(String cpf) {
+		return findByUserCpf(cpf);
 	}
 	
 	@Transactional
@@ -69,12 +76,14 @@ public class UserService {
 	@Transactional
 	public void disable(Long id) {
 		User user = findByUser(id);
+		user.getAccount().setActive(false);
 		user.setActive(false);
 	}
 	
 	@Transactional
 	public void enable(Long id) {
 		User user = findByUser(id);
+		user.getAccount().setActive(true);
 		user.setActive(true);
 	}
 
@@ -141,5 +150,10 @@ public class UserService {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException(String.format("user not found by ID: %d", id)));
 	}
-
+	
+	private User findByUserCpf(String cpf) {
+		return userRepository.findByCpf(cpf)
+				.orElseThrow(() -> new UserNotFoundException(String.format("user not found by CPF: %s", cpf)));
+	}
+	
 }

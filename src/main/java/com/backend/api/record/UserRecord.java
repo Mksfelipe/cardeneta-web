@@ -12,7 +12,8 @@ public record UserRecord (
         LocalDateTime created,
         LocalDateTime updated,
         String cpf,
-        String contact
+        String contact,
+        Long accountId
 ) {
 	
     public UserRecord(User user) {
@@ -24,7 +25,8 @@ public record UserRecord (
                 user.getCreated(),
                 user.getUpdated(),
                 user.getCpf(),
-                user.getContact()
+                user.getContact(),
+                user.getAccount().getId()
         );
     }
 }
