@@ -3,7 +3,6 @@ package com.backend.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +30,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Cacheable(value = "listUser")
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Page<UserRecord> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
