@@ -1,7 +1,5 @@
 package com.backend.security;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,42 +11,36 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableMethodSecurity(jsr250Enabled = true)
 public class ApplicationSecurity {
-     
-    @Autowired
-    private UnauthorizedEntryPoint unauthorizedEntryPoint;
-     
-    @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-     
-    @Bean
-    AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
-    @Bean
-    JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtAuthenticationFilter();
-    }
-     
-    @Bean
-    SecurityFilterChain configure(HttpSecurity http) throws Exception {
-    	http.cors().and().csrf().disable()
-        	.authorizeHttpRequests()
-        		.requestMatchers("/api/auth/signin", "/api/auth/signup").permitAll()
-        		.requestMatchers("/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui/**").permitAll()
-        		.anyRequest().authenticated()
-        		.and()
-        		.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint).and()
-        		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    	 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-    	 
-        return http.build();
-    }  
+	@Bean
+	BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
+
+	@Bean
+	JwtAuthenticationFilter authenticationTokenFilterBean() {
+		return new JwtAuthenticationFilter();
+	}
+
+	@Bean
+	SecurityFilterChain configure(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+						.permitAll()
+
+						.anyRequest().authenticated())
+				.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
 }

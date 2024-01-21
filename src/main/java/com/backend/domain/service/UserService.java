@@ -118,19 +118,13 @@ public class UserService {
 				switch (role) {
 				case "admin":
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+							.orElseThrow(() -> new RoleException("Error: Role is not found: " + ERole.ROLE_ADMIN));
 					roles.add(adminRole);
-
-					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
 
 					break;
 				case "user":
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+							.orElseThrow(() -> new RoleException("Error: Role is not found: " + ERole.ROLE_USER));
 					roles.add(userRole);
 					
 					break;

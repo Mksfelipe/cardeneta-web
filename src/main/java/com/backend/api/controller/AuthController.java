@@ -39,7 +39,7 @@ public class AuthController {
 	private UserService userService;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<AuthTokenModel> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getCpf(), loginRequest.getPassword()));
@@ -51,7 +51,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<MessageResponse> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
 		userService.registerUser(signUpRequest);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

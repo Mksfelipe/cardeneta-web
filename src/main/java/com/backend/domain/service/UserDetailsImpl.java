@@ -3,7 +3,6 @@ package com.backend.domain.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,22 +28,20 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String cpf, String email, String password, String name,
+	public UserDetailsImpl(Long id, String cpf, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.cpf = cpf;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
-		this.name = name;
 	}
 
 	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+		List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())).toList();
 
-		return new UserDetailsImpl(user.getId(), user.getCpf(), user.getEmail(), user.getPassword(),
-				user.getFirstName(), authorities);
+		return new UserDetailsImpl(user.getId(), user.getCpf(), user.getEmail(), user.getPassword(), authorities);
 	}
 
 	@Override
@@ -67,7 +64,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return name;
+		return cpf;
 	}
 
 	@Override
@@ -93,7 +90,7 @@ public class UserDetailsImpl implements UserDetails {
 	public String getCpf() {
 		return cpf;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
