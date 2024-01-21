@@ -23,6 +23,8 @@ import com.backend.api.record.UserWithAccountRecord;
 import com.backend.domain.model.User;
 import com.backend.domain.service.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

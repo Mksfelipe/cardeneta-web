@@ -19,6 +19,7 @@ import com.backend.domain.model.User;
 import com.backend.domain.service.TransactionService;
 import com.backend.domain.service.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 
 

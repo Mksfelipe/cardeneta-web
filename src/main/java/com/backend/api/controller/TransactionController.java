@@ -20,6 +20,8 @@ import com.backend.api.record.TransactionRecord;
 import com.backend.domain.model.Transaction;
 import com.backend.domain.service.TransactionService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/account/{accountId}/transaction")
 public class TransactionController {

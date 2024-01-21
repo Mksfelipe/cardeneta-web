@@ -21,8 +21,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String email;
 
-	private String name;
-
 	@JsonIgnore
 	private String password;
 
