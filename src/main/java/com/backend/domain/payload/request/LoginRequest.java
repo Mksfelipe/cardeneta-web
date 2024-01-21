@@ -3,19 +3,19 @@ package com.backend.domain.payload.request;
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
-	
+
 	@NotBlank
-	private String username;
+	private String cpf;
 
 	@NotBlank
 	private String password;
 
-	public String getUsername() {
-		return username;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getPassword() {
