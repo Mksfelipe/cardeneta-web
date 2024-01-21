@@ -1,10 +1,6 @@
 package com.backend.api.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.domain.payload.request.LoginRequest;
 import com.backend.domain.payload.request.SignupRequest;
+import com.backend.domain.payload.response.AuthTokenModel;
 import com.backend.domain.payload.response.MessageResponse;
-import com.backend.domain.payload.response.UserInfoResponse;
-import com.backend.domain.service.UserDetailsImpl;
 import com.backend.domain.service.UserService;
-import com.backend.security.JwtUtils;
+import com.backend.security.TokenProvider;
 
 import jakarta.validation.Valid;
 
@@ -38,7 +33,7 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private JwtUtils jwtUtils;
+	private TokenProvider tokenProvider;
 	
 	@Autowired
 	private UserService userService;
@@ -46,21 +41,13 @@ public class AuthController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getCpf(), loginRequest.getPassword()));
-
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getCpf(), loginRequest.getPassword()));
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		final String token = tokenProvider.generateToken(authentication);
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
-		List<String> roles = userDetails.getAuthorities().stream()
-		        .map(item -> item.getAuthority())
-		        .toList();
-
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(
-				new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getCpf(), userDetails.getEmail(), roles));
+		return ResponseEntity.ok(new AuthTokenModel(token));
 	}
 
 	@PostMapping("/signup")
@@ -71,11 +58,12 @@ public class AuthController {
 	}
 	
 	
-
+	/**
 	@PostMapping("/signout")
 	public ResponseEntity<?> logoutUser() {
 		ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
 		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
 				.body(new MessageResponse("You've been signed out!"));
 	}
+	*/
 }

@@ -25,7 +25,7 @@ import com.backend.domain.payload.request.SignupRequest;
 import com.backend.domain.repository.RoleRepository;
 import com.backend.domain.repository.UserRepository;
 
-@Service
+@Service("clientService")
 public class UserService {
 
 	@Autowired
@@ -35,11 +35,11 @@ public class UserService {
 	private RoleRepository roleRepository;
 	
 	@Autowired
-	private ModelMapper mapper;
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
+	private ModelMapper mapper;
+	
 	public Page<User> getAll(Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
