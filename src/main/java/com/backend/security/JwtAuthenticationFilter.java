@@ -51,14 +51,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } catch(SignatureException e){
                 logger.error("Authentication Failed. Username or Password not valid.");
             }
-        } else {
-            logger.warn("Couldn't find bearer string, header will be ignored");
-        }
+        } 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
         	UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+            if (Boolean.TRUE.equals(jwtTokenUtil.validateToken(authToken, userDetails))) {
                 UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthenticationToken(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 logger.info("authenticated user " + username + ", setting security context");

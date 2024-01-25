@@ -20,16 +20,13 @@ import com.backend.domain.payload.response.MessageResponse;
 import com.backend.domain.service.UserService;
 import com.backend.security.TokenProvider;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.validation.Valid;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 //for Vue Client (withCredentials)
-@CrossOrigin(origins = "http://127.0.0.1:5173", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/api/auth")
-@SecurityRequirement(name = "bearerAuth")
 public class AuthController {
 	
 	@Autowired
