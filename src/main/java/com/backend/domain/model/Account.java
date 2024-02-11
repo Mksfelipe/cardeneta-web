@@ -50,5 +50,11 @@ public class Account {
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
 	private List<Transaction> transactions;
 
-
+	public void setBalance(BigDecimal balance) {
+		if (balance.compareTo(BigDecimal.ZERO) >= 0) {
+			this.balance = balance;
+		} else {
+			throw new IllegalArgumentException("Balance cannot be negative.");
+		}
+	}
 }

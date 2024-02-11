@@ -36,7 +36,7 @@ import lombok.Setter;
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email") })
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -46,21 +46,21 @@ public class User {
 
 	@Column(name = "lastName")
 	private String lastName;
-	
+
 	private String email;
 
 	private String password;
 
 	@CreationTimestamp
 	private LocalDateTime created;
-	
+
 	@UpdateTimestamp
 	private LocalDateTime updated;
 
-	@NotEmpty
 	@CPF
+	@NotEmpty
 	private String cpf;
-	
+
 	@Convert(converter = BooleanConverter.class)
 	private Boolean active = true;
 
@@ -77,5 +77,5 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
+
 }

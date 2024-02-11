@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.backend.domain.exception.EntityNotFoundException;
 import com.backend.domain.exception.NegocioException;
+import com.backend.domain.exception.TransactionNegativeAmountException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
@@ -101,6 +102,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
+		String detail = ex.getMessage();
+
+		Problem problem = createProblemBuilder(status, problemType, detail).userMessage(detail).build();
+
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+	}
+	
+	@ExceptionHandler(TransactionNegativeAmountException.class)
+	public ResponseEntity<Object> handleTransactionNegativeAmountException(TransactionNegativeAmountException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ProblemType problemType = ProblemType.DADOS_INVALIDOS;
 		String detail = ex.getMessage();
 
 		Problem problem = createProblemBuilder(status, problemType, detail).userMessage(detail).build();

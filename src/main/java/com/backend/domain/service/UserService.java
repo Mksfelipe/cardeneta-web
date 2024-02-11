@@ -64,11 +64,7 @@ public class UserService {
 			throw new UserExistEMailException("Error: Email is already taken!");
 		}
 		
-		if (!userAtual.getCpf().equals(userUpdated.cpf()) && Boolean.TRUE.equals(userRepository.existsByEmail(userUpdated.cpf()))) {
-			throw new UserExistCpfException("Error: Cpf is already taken!");
-		}
-		
-		BeanUtils.copyProperties(userUpdated, userAtual, "id", "account");
+		BeanUtils.copyProperties(userUpdated, userAtual, "id", "account", "cpf");
 		
 		return userRepository.save(userAtual);
 	}

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.domain.exception.TransactionNegativeAmountException;
 import com.backend.domain.exception.TransactionNotFoundException;
 import com.backend.domain.model.Account;
 import com.backend.domain.model.Transaction;
@@ -35,6 +36,11 @@ public class TransactionService {
 	
 	@Transactional
 	public Transaction save(Long accountId, Transaction transaction) {
+		
+		if (transaction.getAmount().compareTo(BigDecimal.ZERO) < 0) {
+            throw new TransactionNegativeAmountException("Transaction amount cannot be negative.");
+        }
+		
 		Account account = accountService.findById(accountId);
 		account.getTransactions().add(transaction);
 		this.calculateTotalAmount(account);

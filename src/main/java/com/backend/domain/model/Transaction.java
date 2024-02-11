@@ -21,13 +21,13 @@ import lombok.Data;
 @Entity
 @Data
 public class Transaction {
-	
+
 	public Transaction(BigDecimal amount) {
 		this.amount = amount;
 	}
-	
+
 	public Transaction() {
-		
+
 	}
 
 	@Id
@@ -39,10 +39,10 @@ public class Transaction {
 	@CreationTimestamp
 	@Column(name = "transaction_date")
 	private LocalDateTime transactionDate;
-	
+
 	@Convert(converter = BooleanConverter.class)
 	private Boolean paid = false;
-	
+
 	@Convert(converter = BooleanConverter.class)
 	private Boolean active = true;
 
@@ -50,6 +50,13 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
-	
+
+	public void setBalance(BigDecimal amount) {
+		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+			this.amount = amount;
+		} else {
+			throw new IllegalArgumentException("amount cannot be negative.");
+		}
+	}
 
 }
