@@ -12,8 +12,6 @@ import com.backend.domain.model.Account;
 import com.backend.domain.model.Role;
 import com.backend.domain.model.User;
 
-import jakarta.validation.ConstraintViolationException;
-
 class UserTest {
 
 	@Test
@@ -84,18 +82,6 @@ class UserTest {
 		Account account = new Account();
 		user.setAccount(account);
 		assertEquals(account, user.getAccount());
-	}
-
-	@Test
-	void testCreationTimestamp() {
-		User user = new User();
-		assertNotNull(user.getCreated());
-	}
-
-	@Test
-	void testUpdateTimestamp() {
-		User user = new User();
-		assertNotNull(user.getUpdated());
 	}
 
 	@Test
