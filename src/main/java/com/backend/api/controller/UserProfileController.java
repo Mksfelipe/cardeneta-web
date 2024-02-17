@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.api.dto.TransactionDTO;
-import com.backend.api.dto.UserDTO;
+import com.backend.api.dto.UserWithAccountDTO;
 import com.backend.domain.model.Transaction;
 import com.backend.domain.model.User;
 import com.backend.domain.service.TransactionService;
@@ -35,14 +35,14 @@ public class UserProfileController {
 
 	@GetMapping
 	@RolesAllowed("USER")
-	public UserDTO getUserInfo() {
+	public UserWithAccountDTO getUserInfo() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		// Verifica se o usuário está autenticado
 		if (authentication != null && authentication.isAuthenticated()) {
 			User user = userService.findbyCpf(authentication.getName());
 
-			return new UserDTO(user);
+			return new UserWithAccountDTO(user);
 		}
 		return null;
 	}

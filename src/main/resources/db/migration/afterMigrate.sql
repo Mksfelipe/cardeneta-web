@@ -2,11 +2,13 @@ ALTER SEQUENCE cardeneta.roles_id_seq RESTART WITH 1;
 ALTER SEQUENCE cardeneta.users_id_seq RESTART WITH 1;
 ALTER SEQUENCE cardeneta.account_id_seq RESTART WITH 1;
 ALTER SEQUENCE cardeneta.transaction_id_seq RESTART WITH 1;
+ALTER SEQUENCE cardeneta.payment_id_seq RESTART WITH 1;
 
-DELETE FROM cardeneta.transaction;
 DELETE FROM cardeneta.user_roles;
 DELETE FROM cardeneta.users;
 DELETE FROM cardeneta.roles;
+DELETE FROM cardeneta.transaction;
+DELETE FROM cardeneta.payment;
 DELETE FROM cardeneta.account;
 
 INSERT INTO cardeneta.account (id, balance, created, updated, active) VALUES(nextval('cardeneta.account_id_seq'::regclass), 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Y'::bpchar);

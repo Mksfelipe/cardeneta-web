@@ -12,3 +12,4 @@ CREATE TABLE account (
     active CHAR(1) DEFAULT 'Y',
     CONSTRAINT account_pkey PRIMARY KEY (id)
 );
+

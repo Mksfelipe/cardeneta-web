@@ -51,6 +51,11 @@ public class Transaction {
 	@JoinColumn(name = "account_id")
 	private Account account;
 
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "payment_id")
+	private Payment payment;
+
 	public void setBalance(BigDecimal amount) {
 		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
 			this.amount = amount;

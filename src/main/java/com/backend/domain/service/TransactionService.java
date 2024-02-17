@@ -1,6 +1,7 @@
 package com.backend.domain.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TransactionService {
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private TransactionRepository transactionRepository;
 
@@ -31,55 +32,56 @@ public class TransactionService {
 
 	public Page<Transaction> getAll(Long accountId, Pageable pageable) {
 		Account account = accountService.findById(accountId);
-		
+
 		return transactionRepository.findTransactionsByAccountId(account, pageable);
 	}
-	
+
 	@Transactional
 	public Transaction save(Long accountId, TransactionDTO transactionDTO) {
-		
+
 		if (transactionDTO.getAmount().compareTo(BigDecimal.ZERO) < 0) {
-            throw new TransactionNegativeAmountException("Transaction amount cannot be negative.");
-        }
-		
+			throw new TransactionNegativeAmountException("Transaction amount cannot be negative.");
+		}
+
 		Transaction transaction = new Transaction(transactionDTO.getAmount());
-		
+
 		Account account = accountService.findById(accountId);
 		account.getTransactions().add(transaction);
 		this.calculateTotalAmount(account);
-		
+
 		transaction.setAccount(account);
 		accountRepository.save(account);
-		
-		
+
 		return transactionRepository.save(transaction);
 	}
-	
+
 	@Transactional
 	public void delete(Long accountId, Long transactionId) {
 		Account account = accountService.findById(accountId);
-		
-		boolean transactionExists = account.getTransactions().removeIf(transaction -> Objects.equals(transaction.getId(), transactionId));
-		
-	    if (!transactionExists) {
-	    	throw new TransactionNotFoundException(transactionId);
-	    }
-	    
-	    transactionRepository.deleteById(transactionId);
-	    
-	    calculateTotalAmount(account);
-	}
-	
-	private void calculateTotalAmount(Account account) {
-	    if (!account.getTransactions().isEmpty()) {
-	        BigDecimal balance = account.getTransactions().stream()
-	                .filter(transaction -> !transaction.getPaid())
-	                .map(Transaction::getAmount)
-	                .reduce(BigDecimal::add)
-	                .orElse(BigDecimal.ZERO);
 
-	        account.setBalance(balance);
-	    }
+		boolean transactionExists = account.getTransactions()
+				.removeIf(transaction -> Objects.equals(transaction.getId(), transactionId));
+
+		if (!transactionExists) {
+			throw new TransactionNotFoundException(transactionId);
+		}
+
+		transactionRepository.deleteById(transactionId);
+
+		calculateTotalAmount(account);
 	}
-	
+
+	public List<Transaction> transactions(Account account) {
+		return transactionRepository.findTransactionsByAccountId(account);
+	}
+
+	private void calculateTotalAmount(Account account) {
+		if (!account.getTransactions().isEmpty()) {
+			BigDecimal balance = account.getTransactions().stream().filter(transaction -> !transaction.getPaid())
+					.map(Transaction::getAmount).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+
+			account.setBalance(balance);
+		}
+	}
+
 }

@@ -12,17 +12,19 @@ import lombok.Setter;
 @Setter
 public class TransactionDTO {
 
+	private Long id;
 	private BigDecimal amount;
 	private LocalDateTime transactionDate;
 	private Boolean paid;
 	private Boolean active;
 
 	public TransactionDTO(Transaction transaction) {
+		this.id = transaction.getId();
 		this.active = transaction.getActive();
 		this.transactionDate = transaction.getTransactionDate();
 		this.paid = transaction.getPaid();
 		this.active = transaction.getActive();
-		this.amount = transaction.getAmount();
+		this.amount = transaction.getAmount();	
 	}
 
 	public TransactionDTO(BigDecimal amount) {
