@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.api.record.TransactionRecord;
-import com.backend.api.record.UserWithAccountRecord;
+import com.backend.api.dto.TransactionDTO;
+import com.backend.api.dto.UserDTO;
 import com.backend.domain.model.Transaction;
 import com.backend.domain.model.User;
 import com.backend.domain.service.TransactionService;
@@ -22,52 +22,48 @@ import com.backend.domain.service.UserService;
 
 import jakarta.annotation.security.RolesAllowed;
 
-
 @RestController
 @RequestMapping("api/user/profile")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
 public class UserProfileController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private TransactionService transactionService;
-	
+
 	@GetMapping
 	@RolesAllowed("USER")
-    public UserWithAccountRecord getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public UserDTO getUserInfo() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Verifica se o usuário está autenticado
-        if (authentication != null && authentication.isAuthenticated()) {
-            User user = userService.findbyCpf(authentication.getName());
-            
-            
-            return new UserWithAccountRecord(user);
-        }
+		// Verifica se o usuário está autenticado
+		if (authentication != null && authentication.isAuthenticated()) {
+			User user = userService.findbyCpf(authentication.getName());
+
+			return new UserDTO(user);
+		}
 		return null;
-    }
-	
+	}
+
 	@GetMapping("/transanctions")
-	public Page<TransactionRecord> getAlltransanctions(Pageable pageable) {
-		
+	public Page<TransactionDTO> getAlltransanctions(Pageable pageable) {
+
 		User user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Verifica se o usuário está autenticado
-        if (authentication != null && authentication.isAuthenticated()) {
-            user = userService.findbyCpf(authentication.getName());
-            
-            
-            Page<Transaction> listTransactionPage = transactionService.getAll(user.getAccount().getId(), pageable);
-    	    
-    	    List<TransactionRecord> transactionRecords = listTransactionPage.getContent()
-    	            .stream()
-    	            .map(TransactionRecord::new).toList();
-    	    return new PageImpl<>(transactionRecords, pageable, listTransactionPage.getTotalElements());
-        }
-        return null;
+		// Verifica se o usuário está autenticado
+		if (authentication != null && authentication.isAuthenticated()) {
+			user = userService.findbyCpf(authentication.getName());
+
+			Page<Transaction> listTransactionPage = transactionService.getAll(user.getAccount().getId(), pageable);
+
+			List<TransactionDTO> transactionRecords = listTransactionPage.getContent().stream()
+					.map(TransactionDTO::new).toList();
+			return new PageImpl<>(transactionRecords, pageable, listTransactionPage.getTotalElements());
+		}
+		return null;
 	}
-	
+
 }

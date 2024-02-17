@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.api.record.UserRecord;
-import com.backend.api.record.UserWithAccountRecord;
+import com.backend.api.dto.UserDTO;
 import com.backend.domain.model.User;
 import com.backend.domain.service.UserService;
 
@@ -34,39 +33,39 @@ public class UserController {
 
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public Page<UserRecord> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public Page<UserDTO> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 	    Page<User> listUserPage = userService.getAll(pageable);
 	    
-	    List<UserRecord> userRecords = listUserPage.getContent()
+	    List<UserDTO> usersDTO = listUserPage.getContent()
 	            .stream()
-	            .map(UserRecord::new).toList();
+	            .map(UserDTO::new).toList();
 	    
-	    return new PageImpl<>(userRecords, pageable, listUserPage.getTotalElements());
+	    return new PageImpl<>(usersDTO, pageable, listUserPage.getTotalElements());
 	}
 	
 	@GetMapping("/search")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public Page<UserRecord> findAll(@RequestParam String fullName, @PageableDefault(page = 0, size = 10) Pageable pageable) {
+	public Page<UserDTO> findAll(@RequestParam String fullName, @PageableDefault(page = 0, size = 10) Pageable pageable) {
 	    Page<User> listUserPage = userService.searchUsersByFullName(fullName, pageable);
 	    
-	    List<UserRecord> userRecords = listUserPage.getContent()
+	    List<UserDTO> usersDTO = listUserPage.getContent()
 	            .stream()
-	            .map(UserRecord::new).toList();
+	            .map(UserDTO::new).toList();
 	    
-	    return new PageImpl<>(userRecords, pageable, listUserPage.getTotalElements());
+	    return new PageImpl<>(usersDTO, pageable, listUserPage.getTotalElements());
 	}
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public UserWithAccountRecord findById(@PathVariable Long id) {
-		return new UserWithAccountRecord(userService.findbyId(id));
+	public UserDTO findById(@PathVariable Long id) {
+		return new UserDTO(userService.findbyId(id));
 	}
 	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public UserRecord updated(@RequestBody UserRecord userRecord, @PathVariable Long id) {
-		User user = userService.update(userRecord, id);
-		return new UserRecord(user);
+	public UserDTO updated(@RequestBody UserDTO userDTO, @PathVariable Long id) {
+		User user = userService.update(userDTO, id);
+		return new UserDTO(user);
 	}
 	
 	@PutMapping("/{id}/disable")

@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.api.record.TransactionAmountRecord;
-import com.backend.api.record.TransactionRecord;
+import com.backend.api.dto.TransactionDTO;
 import com.backend.domain.model.Transaction;
 import com.backend.domain.service.TransactionService;
 
@@ -31,23 +30,21 @@ public class TransactionController {
 	
 	@PostMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public Transaction save(@PathVariable Long accountId, @RequestBody TransactionAmountRecord transactionRecord) {
-		Transaction transaction = new Transaction(transactionRecord.amount());
-		transactionService.save(accountId, transaction);
+	public void save(@PathVariable Long accountId, @RequestBody TransactionDTO transactionDTO) {
+		transactionService.save(accountId, transactionDTO);
 		
-		return null;
 	}
 	
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public Page<TransactionRecord> findAll(@PathVariable Long accountId, Pageable pageable) {
+	public Page<TransactionDTO> findAll(@PathVariable Long accountId, Pageable pageable) {
 	    Page<Transaction> listTransactionPage = transactionService.getAll(accountId, pageable);
 	    
-	    List<TransactionRecord> transactionRecords = listTransactionPage.getContent()
+	    List<TransactionDTO> transactionsDTO = listTransactionPage.getContent()
 	            .stream()
-	            .map(TransactionRecord::new).toList();
+	            .map(TransactionDTO::new).toList();
 	    
-	    return new PageImpl<>(transactionRecords, pageable, listTransactionPage.getTotalElements());
+	    return new PageImpl<>(transactionsDTO, pageable, listTransactionPage.getTotalElements());
 	}
 	
 	@DeleteMapping("/{transactionId}")

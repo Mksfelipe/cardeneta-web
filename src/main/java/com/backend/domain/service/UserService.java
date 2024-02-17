@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.backend.api.record.UserRecord;
+import com.backend.api.dto.UserDTO;
 import com.backend.domain.exception.RoleException;
 import com.backend.domain.exception.UserExistCpfException;
 import com.backend.domain.exception.UserExistEMailException;
@@ -57,14 +57,14 @@ public class UserService {
 	}
 	
 	@Transactional
-	public User update(UserRecord userUpdated, Long id) {
+	public User update(UserDTO userDTO, Long id) {
 		User userAtual = findByUser(id);
 		
-		if (!userAtual.getEmail().equals(userUpdated.email()) && Boolean.TRUE.equals(userRepository.existsByEmail(userUpdated.email()))) {
+		if (!userAtual.getEmail().equals(userDTO.getEmail()) && Boolean.TRUE.equals(userRepository.existsByEmail(userDTO.getEmail()))) {
 			throw new UserExistEMailException("Error: Email is already taken!");
 		}
 		
-		BeanUtils.copyProperties(userUpdated, userAtual, "id", "account", "cpf");
+		BeanUtils.copyProperties(userDTO, userAtual, "id", "account", "cpf");
 		
 		return userRepository.save(userAtual);
 	}
