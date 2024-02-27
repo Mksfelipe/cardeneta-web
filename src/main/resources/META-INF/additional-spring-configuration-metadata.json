@@ -18,25 +18,20 @@
     "name": "cardeneta.app.jwtCookieName",
     "type": "java.lang.String",
     "description": "A description for 'cardeneta.app.jwtCookieName'"
-  }
-]}{
-    "name": "cardeneta.app.jwtCookieName",
+  },
+  {
+    "name": "jwt.token.validity",
     "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
-  }
-]}{
-    "name": "cardeneta.app.jwtCookieName",
+    "description": "A description for 'jwt.token.validity'"
+  },
+  {
+    "name": "jwt.signing.key",
     "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
-  }
-]}{
-    "name": "cardeneta.app.jwtCookieName",
+    "description": "A description for 'jwt.signing.key'"
+  },
+  {
+    "name": "jwt.authorities.key",
     "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
-  }
-]}{
-    "name": "cardeneta.app.jwtCookieName",
-    "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
+    "description": "A description for 'jwt.authorities.key'"
   }
 ]}
