@@ -21,6 +21,7 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
+            	sh 'docker rmi -f $(docker images -q)'
             	sh 'docker build -t cardeneta-api .'
             	sh 'chmod +x ./jenkins/scripts/deliver.sh'
                 sh './jenkins/scripts/deliver.sh' 
