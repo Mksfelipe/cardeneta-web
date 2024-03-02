@@ -1,5 +1,8 @@
 pipeline {
     agent any
+     environment {
+        DB_URL = credentials('DATABASE_URL')
+    }
     options {
         skipStagesAfterUnstable()
     }
@@ -7,7 +10,6 @@ pipeline {
         stage('Build') {
             steps {
                sh 'mvn -B -DskipTests clean package'
-               
                sh 'echo ${DATABASE_URL}'
             }
         }
@@ -23,6 +25,8 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
+            
+            	sh 'echo ${DB_URL}'
             	sh 'docker build -t cardeneta-api .'
             	sh 'chmod +x ./jenkins/scripts/deliver.sh'
                 sh './jenkins/scripts/deliver.sh' 
