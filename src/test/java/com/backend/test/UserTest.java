@@ -34,7 +34,7 @@ class UserTest {
 		assertEquals("Doe", user.getLastName());
 		assertEquals("john.doe@example.com", user.getEmail());
 		assertEquals("password123", user.getPassword());
-		assertEquals("123456789015651", user.getCpf());
+		assertEquals("12345678901", user.getCpf());
 		assertTrue(user.getActive());
 		assertEquals(mockAccount, user.getAccount());
 		assertTrue(user.getRoles().contains(mockRole));
