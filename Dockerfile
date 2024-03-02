@@ -1,4 +1,3 @@
-  GNU nano 6.2                                           Dockerfile
 # Use uma imagem base com o JDK 17
 FROM openjdk:17-jdk-alpine
 
