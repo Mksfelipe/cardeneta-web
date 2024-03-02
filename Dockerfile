@@ -12,4 +12,3 @@ EXPOSE 9090
 
 # Comando para iniciar a aplicação quando o contêiner for iniciado
 CMD ["java", "-jar", "cardeneta-web-0.0.1-SNAPSHOT.jar"]
-
