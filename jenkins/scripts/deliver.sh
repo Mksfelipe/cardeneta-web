@@ -11,6 +11,5 @@ do
 done
 
 echo "Todos os containers foram removidos com sucesso."
-docker rmi -f $(docker images -q)
 
 docker run -d -p 9090:9090 cardeneta-api
