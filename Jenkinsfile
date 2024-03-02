@@ -7,6 +7,8 @@ pipeline {
         stage('Build') {
             steps {
                sh 'mvn -B -DskipTests clean package'
+               
+               sh 'echo ${DATABASE_URL}'
             }
         }
         stage('Test') {
