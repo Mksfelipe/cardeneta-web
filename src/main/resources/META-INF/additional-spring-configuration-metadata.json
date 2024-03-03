@@ -1,37 +1,5 @@
-{"properties": [
-  {
-    "name": "cardeneta.app.jwtCookieName",
-    "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
-  },
-  {
-    "name": "cardeneta.app.jwtSecret",
-    "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtSecret'"
-  },
-  {
-    "name": "cardeneta.app.jwtExpirationMs",
-    "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtExpirationMs'"
-  },
-  {
-    "name": "cardeneta.app.jwtCookieName",
-    "type": "java.lang.String",
-    "description": "A description for 'cardeneta.app.jwtCookieName'"
-  },
-  {
-    "name": "jwt.token.validity",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.token.validity'"
-  },
-  {
-    "name": "jwt.signing.key",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.signing.key'"
-  },
-  {
-    "name": "jwt.authorities.key",
-    "type": "java.lang.String",
-    "description": "A description for 'jwt.authorities.key'"
-  }
-]}
+{"properties": [{
+  "name": "token",
+  "type": "java.lang.String",
+  "description": "A description for 'token'"
+}]}
