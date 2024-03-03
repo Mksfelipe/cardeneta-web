@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://127.0.0.1:5432/cardeneta-dev?currentSchema=cardeneta
+    username: postgres
+    password: fFSF@.421
   server:
     port: 9090
   jpa:
