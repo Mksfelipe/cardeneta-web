@@ -16,7 +16,7 @@ spring:
     open-in-view: false
   flyway:
     locations: classpath:db/migration
-    enabled: true
+    enabled: false
     baseline-on-migrate: true
   doc:
     swagger-ui:
