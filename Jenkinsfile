@@ -23,12 +23,14 @@ pipeline {
                 }
             }
         }
-        stage("Staging") {
-        	steps {
-                sh "pid=\$(lsof -i:9090 -t); kill -TERM \$pid " 
+        stage('Deliver') { 
+            steps {
+            	sh "pid=\$(lsof -i:8989 -t); kill -TERM \$pid " 
                   + "|| kill -KILL \$pid"
-                sh 'nohup ./mvnw spring-boot:run -Dserver.port=8989 &'
-        	}
+                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                    sh 'nohup ./mvnw spring-boot:run -Dserver.port=8989 &'
+                }   
+            }
         }
     }
 }
