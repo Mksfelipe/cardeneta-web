@@ -25,8 +25,6 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-            	sh 'docker build --build-arg DB_URL=${DB_URL} -t cardeneta-api .'
-            	sh 'chmod +x ./jenkins/scripts/deliver.sh'
                 sh './jenkins/scripts/deliver.sh' 
             }
         }
