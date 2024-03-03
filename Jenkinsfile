@@ -25,7 +25,7 @@ pipeline {
             steps {
             	scripts {
             	def databaseUrl = env.DATABASE_URL
-                    echo "DATABASE_URL: ${databaseUrl}"
+                   echo "DATABASE_URL: ${databaseUrl}"
             	}
             	sh 'chmod +x ./jenkins/scripts/deliver.sh'
                 sh './jenkins/scripts/deliver.sh' 
