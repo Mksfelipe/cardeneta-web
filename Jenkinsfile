@@ -1,8 +1,5 @@
 pipeline {
     agent any
-     environment {
-        DB_URL = credentials('DATABASE_URL')
-    }
     options {
         skipStagesAfterUnstable()
     }
@@ -25,11 +22,8 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-            	sh "pid=\$(lsof -i:8989 -t); kill -TERM \$pid " 
-                  + "|| kill -KILL \$pid"
-                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-                    sh 'nohup ./mvnw spring-boot:run -Dserver.port=8989 &'
-                }   
+            	sh 'chmod +x ./jenkins/scripts/deliver.sh'
+                sh './jenkins/scripts/deliver.sh' 
             }
         }
     }
