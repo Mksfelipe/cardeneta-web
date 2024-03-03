@@ -3,9 +3,10 @@ server:
     ssl:
       enabled: true
       key-store-type: PKCS12
-      key-store: classpath:keystore.p12
-      key-store-password: password
-      key-alias: alias
+      key-store: classpath:keystore/baeldung.p12
+      key-store-password: fFSF@.421
+      key-alias: baeldung
+
 
 spring:
   datasource:
