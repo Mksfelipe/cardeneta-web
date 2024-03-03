@@ -23,11 +23,12 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
-            steps {
-            	sh 'chmod +x ./jenkins/scripts/deliver.sh'
-                sh './jenkins/scripts/deliver.sh' 
-            }
+        stage("Staging") {
+        	steps {
+                sh "pid=\$(lsof -i:9090 -t); kill -TERM \$pid " 
+                  + "|| kill -KILL \$pid"
+                sh 'nohup ./mvnw spring-boot:run -Dserver.port=8989 &'
+        	}
         }
     }
 }
