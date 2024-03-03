@@ -26,8 +26,9 @@ pipeline {
         stage('Deliver') { 
             
             steps {
+            	sh 'echo $DATABASE_URL'
             	sh 'chmod +x ./jenkins/scripts/deliver.sh'
-                sh './jenkins/scripts/deliver.sh' 
+                
             }
         }
     }
