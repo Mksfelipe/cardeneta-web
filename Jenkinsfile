@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DATABASE_URL = credentials('DATABASE_URL')
-    }
     options {
         skipStagesAfterUnstable()
     }
@@ -10,7 +7,6 @@ pipeline {
         stage('Build') {
             steps {
                sh 'mvn -B -DskipTests clean package'
-               sh 'echo ${DATABASE_URL}'
             }
         }
         stage('Test') {
