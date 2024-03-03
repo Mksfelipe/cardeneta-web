@@ -4,6 +4,13 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+    
+    	stage('INITIALIZE') {
+            steps{
+                sh 'echo ${DATABASE_URL}'
+            }
+        }
+    	
         stage('Build') {
             steps {
                sh 'mvn -B -DskipTests clean package'
@@ -23,10 +30,6 @@ pipeline {
         stage('Deliver') { 
             
             steps {
-            	scripts {
-            	def databaseUrl = env.DATABASE_URL
-                   echo "DATABASE_URL: ${databaseUrl}"
-            	}
             	sh 'chmod +x ./jenkins/scripts/deliver.sh'
                 sh './jenkins/scripts/deliver.sh' 
             }
