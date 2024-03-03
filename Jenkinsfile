@@ -4,13 +4,6 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-    
-    	stage('INITIALIZE') {
-            steps{
-                sh 'echo ${DATABASE_URL}'
-            }
-        }
-    	
         stage('Build') {
             steps {
                sh 'mvn -B -DskipTests clean package'
