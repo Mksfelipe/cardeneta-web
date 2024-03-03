@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        DATABASE_URL = credentials('DATABASE_URL')
+    }
     options {
         skipStagesAfterUnstable()
     }
