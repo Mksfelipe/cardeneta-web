@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: ${DATABASE_URL}
-    username: ${DATABASE_USER}
+    username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
   server:
     port: 9090
@@ -20,12 +20,10 @@ spring:
   doc:
     swagger-ui:
       path: /swagger-ui.html
-  jwt:
+  jwt: # Move all jwt properties under this single declaration
     token:
       validity: 900
-      signing-key: MxtxKNag8gHIYFg8BzdXZWF57bOEDCjSgq3R+u6cfe5LD5oEqvwIhgurwR50haI4UqiBU2l5Gs4ElYy7PT/KRqNL7Pd5yZLgx/W4YI42Bx9ihOJiR1nDRJt7VeYQxpRevzQ2Mi4zfIqKm35HGJxHKTu9noi4m6N6++WjwIuTo7onv5ZdrbV6WoF+U5yRJcKMfoaZoj0jcTh3uct1EFwFokvY2gVWoQdNGxa4FQ==%
+      signing-key: MxtxKNag8gHIYFg8BzdXZWF57bOEDCjSgq3R+u6cfe5LD5oEqvwIhgurwR50haI4UqiBU2l5Gs4ElYy7PT/KRqNL7Pd5yZLgx/W4YI42Bx9ihOJiR1nDRJt7VeYQxpRevzQ2Mi4zfIqKm35HGJxHKTu9noi4m6N6++WjwIuTo7onv5ZdrbV6WoF+U5yRJcKMfoaZoj0jcTh3uct1EFwFokvY2gVWoQdNGxa4FQ==
     authorities:
       key: roles
       prefix: Bearer
-    header:
-      string: Authorization

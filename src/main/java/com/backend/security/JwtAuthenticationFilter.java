@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Value("${jwt.header.string}")
+    @Value("Authorization")
     public String headerString;
 
     @Value("${jwt.token.prefix}")
