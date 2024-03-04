@@ -28,13 +28,13 @@ public class TokenProvider implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Value("${spring.jwt.token.validity}")
+	@Value("${jwt.token.validity}")
 	public long TOKEN_VALIDITY;
 
-	@Value("${spring.jwt.signing.key}")
+	@Value("${jwt.signing.key}")
 	public String SIGNING_KEY;
 
-	@Value("${spring.jwt.authorities.key}")
+	@Value("${jwt.authorities.key}")
 	public String AUTHORITIES_KEY;
 
 	public String getUsernameFromToken(String token) {

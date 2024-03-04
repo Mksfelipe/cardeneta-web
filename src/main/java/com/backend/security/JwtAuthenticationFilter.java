@@ -23,10 +23,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Value("${spring.jwt.header.string}")
+    @Value("${jwt.header.string}")
     public String headerString;
 
-    @Value("${spring.jwt.token.prefix}")
+    @Value("${jwt.token.prefix}")
     public String tokenPrefix;
 
     @Resource(name = "userService")
