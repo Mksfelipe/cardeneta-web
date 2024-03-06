@@ -25,7 +25,7 @@ import com.backend.domain.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "https://cardeneta-web-production.up.railway.app/", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", maxAge = 3600, allowCredentials = "true")
 public class UserController {
 
 	@Autowired

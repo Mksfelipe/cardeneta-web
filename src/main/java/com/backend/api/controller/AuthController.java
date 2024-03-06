@@ -23,9 +23,7 @@ import com.backend.security.TokenProvider;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
-//for Vue Client (withCredentials)
-@CrossOrigin(origins = "https://cardeneta-web-production.up.railway.app/", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

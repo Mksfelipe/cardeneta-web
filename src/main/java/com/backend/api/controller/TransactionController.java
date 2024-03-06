@@ -22,7 +22,7 @@ import com.backend.domain.service.TransactionService;
 
 @RestController
 @RequestMapping("/api/account/{accountId}/transaction")
-@CrossOrigin(origins = "https://cardeneta-web-production.up.railway.app/", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", maxAge = 3600, allowCredentials = "true")
 public class TransactionController {
 	
 	@Autowired
