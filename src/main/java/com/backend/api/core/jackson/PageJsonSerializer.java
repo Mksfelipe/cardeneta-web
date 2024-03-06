@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 @JsonComponent
-public class PageJsonSerializer extends JsonSerializer<Page<?>>{
+public class PageJsonSerializer extends JsonSerializer<Page<?>> {
 
 	@Override
 	public void serialize(Page<?> page, JsonGenerator gen, SerializerProvider serializers) throws IOException {

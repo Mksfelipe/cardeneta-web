@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 //for Vue Client (withCredentials)
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "https://cardeneta-web-production.up.railway.app/", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

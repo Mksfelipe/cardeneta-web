@@ -24,7 +24,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("api/user/profile")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "https://cardeneta-web-production.up.railway.app/", maxAge = 3600, allowCredentials="true")
 public class UserProfileController {
 
 	@Autowired
