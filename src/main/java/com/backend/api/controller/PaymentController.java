@@ -1,7 +1,6 @@
 package com.backend.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +12,6 @@ import com.backend.domain.service.PaymentService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/account/{accountId}/payment")
 public class PaymentController {

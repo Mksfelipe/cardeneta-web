@@ -1,5 +1,7 @@
 package com.backend.api.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,11 @@ import com.backend.security.TokenProvider;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+	
+	private static final Logger LOG = LogManager.getLogger(AuthController.class);
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -39,7 +41,7 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<AuthTokenModel> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+		LOG.info("Welcome to ELK demo service");
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getCpf(), loginRequest.getPassword()));
 		
