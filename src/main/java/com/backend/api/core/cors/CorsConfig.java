@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://cardeneta-angular-36wdkhdr3-felipes-projects-baa7e28d.vercel.app", "http://localhost:4200")
+                .allowedOrigins("https://cardeneta-angular.vercel.app/", "http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos permitidos
                 .allowedHeaders("*"); // Headers permitidos
     }

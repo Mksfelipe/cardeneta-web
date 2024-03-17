@@ -36,7 +36,6 @@ public class UserProfileController {
 	public UserWithAccountDTO getUserInfo() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		// Verifica se o usuário está autenticado
 		if (authentication != null && authentication.isAuthenticated()) {
 			User user = userService.findbyCpf(authentication.getName());
 
@@ -46,6 +45,7 @@ public class UserProfileController {
 	}
 
 	@GetMapping("/transanctions")
+	@RolesAllowed("USER")
 	public Page<TransactionDTO> getAlltransanctions(Pageable pageable) {
 
 		User user = null;
