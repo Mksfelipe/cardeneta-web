@@ -7,3 +7,6 @@ CREATE TABLE cardeneta.transaction (
     FOREIGN KEY (account_id) REFERENCES cardeneta.account(id)
 );
 
+
+ALTER TABLE cardeneta.transaction
+ADD COLUMN paid CHAR(1) DEFAULT 'Y';

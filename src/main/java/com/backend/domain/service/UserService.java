@@ -25,62 +25,55 @@ import com.backend.domain.payload.request.SignupRequest;
 import com.backend.domain.repository.RoleRepository;
 import com.backend.domain.repository.UserRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service("clientService")
 public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	public Page<User> getAll(Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
-	
+
 	public Page<User> searchUsersByFullName(String fullName, Pageable pageable) {
-        return userRepository.searchByFullName(fullName, pageable);
-    }
-	
+		return userRepository.searchByFullName(fullName, pageable);
+	}
+
 	public User findbyId(Long id) {
 		return findByUser(id);
 	}
-	
+
 	public User findbyCpf(String cpf) {
 		return findByUserCpf(cpf);
 	}
-	
+
 	@Transactional
 	public User update(UserDTO userDTO, Long id) {
 		User userAtual = findByUser(id);
-		
-		if (!userAtual.getEmail().equals(userDTO.getEmail()) && Boolean.TRUE.equals(userRepository.existsByEmail(userDTO.getEmail()))) {
+
+		if (!userAtual.getEmail().equals(userDTO.getEmail())
+				&& Boolean.TRUE.equals(userRepository.existsByEmail(userDTO.getEmail()))) {
 			throw new UserExistEMailException("Error: Email is already taken!");
 		}
-		
+
 		BeanUtils.copyProperties(userDTO, userAtual, "id", "account", "cpf");
-		
+
 		return userRepository.save(userAtual);
-	}
-	
-	@Transactional
-	public void disable(Long id) {
-		User user = findByUser(id);
-		user.getAccount().setActive(false);
-		user.setActive(false);
-	}
-	
-	@Transactional
-	public void enable(Long id) {
-		User user = findByUser(id);
-		user.getAccount().setActive(true);
-		user.setActive(true);
 	}
 
 	@Transactional
@@ -89,14 +82,14 @@ public class UserService {
 		if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
 			throw new UserExistEMailException("Error: Email is already taken!");
 		}
-		
+
 		if (Boolean.TRUE.equals(userRepository.existsByCpf(signUpRequest.getCpf()))) {
 			throw new UserExistCpfException("Error: Cpf is already taken!");
 		}
 
 		User user = new User();
 		signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-		
+
 		mapper.map(signUpRequest, user);
 
 		Account account = new Account();
@@ -122,7 +115,7 @@ public class UserService {
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 							.orElseThrow(() -> new RoleException("Error: Role is not found: " + ERole.ROLE_USER));
 					roles.add(userRole);
-					
+
 					break;
 				default:
 					throw new RoleException("Role not find: " + role);
@@ -135,15 +128,15 @@ public class UserService {
 
 		return user;
 	}
-	
+
 	private User findByUser(Long id) {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException(String.format("user not found by ID: %d", id)));
 	}
-	
+
 	private User findByUserCpf(String cpf) {
 		return userRepository.findByCpf(cpf)
 				.orElseThrow(() -> new UserNotFoundException(String.format("user not found by CPF: %s", cpf)));
 	}
-	
+
 }

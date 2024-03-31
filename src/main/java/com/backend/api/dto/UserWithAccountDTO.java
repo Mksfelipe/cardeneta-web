@@ -29,9 +29,6 @@ public class UserWithAccountDTO {
 	@NotEmpty
 	private String cpf;
 
-	@Convert(converter = BooleanConverter.class)
-	private Boolean active = true;
-
 	private String contact;
 
 	public UserWithAccountDTO(User user) {
@@ -42,7 +39,6 @@ public class UserWithAccountDTO {
 		this.created = user.getCreated();
 		this.updated = user.getUpdated();
 		this.cpf = user.getCpf();
-		this.active = user.getActive();
 		this.contact = user.getContact();
 		this.account = user.getAccount();
 	}

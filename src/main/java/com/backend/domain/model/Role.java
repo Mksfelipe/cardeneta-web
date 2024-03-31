@@ -24,9 +24,6 @@ public class Role {
 	@Column(length = 20)
 	private ERole name;
 
-	@Convert(converter = BooleanConverter.class)
-	private Boolean active = true;
-
 	public Role() {
 
 	}

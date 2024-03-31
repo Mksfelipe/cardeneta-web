@@ -9,6 +9,6 @@ import com.backend.domain.model.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long>{
 
-	@Query("SELECT a FROM Account a WHERE a.id = :id AND active = true")
+	@Query("SELECT a FROM Account a WHERE a.id = :id")
 	Optional<Account> findById(Long id);
 }

@@ -8,12 +8,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.backend.domain.model.converter.BooleanConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -60,9 +58,6 @@ public class User {
 	@CPF
 	@NotEmpty
 	private String cpf;
-
-	@Convert(converter = BooleanConverter.class)
-	private Boolean active = true;
 
 	private String contact;
 

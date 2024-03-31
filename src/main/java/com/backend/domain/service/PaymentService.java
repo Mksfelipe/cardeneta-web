@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.backend.api.dto.PaymentDTO;
+import com.backend.domain.exception.AccountBalanceZero;
 import com.backend.domain.exception.InsufficientfundsException;
 import com.backend.domain.model.Account;
 import com.backend.domain.model.Payment;
@@ -39,8 +40,12 @@ public class PaymentService {
 	public void save(Long accountId, PaymentDTO paymentDTO) {
 		Account account = accountService.findById(accountId);
 
+		if (account.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
+			throw new AccountBalanceZero("account balance is zero");
+		}
+		
 		if (paymentDTO.getAmountPaid().compareTo(account.getBalance()) < 0) {
-			throw new InsufficientfundsException("insuficiente para realizar o pagamento");
+			throw new InsufficientfundsException("insufficient to make payment");
 		}
 
 		Payment payment = new Payment();

@@ -43,9 +43,6 @@ public class Transaction {
 	@Convert(converter = BooleanConverter.class)
 	private Boolean paid = false;
 
-	@Convert(converter = BooleanConverter.class)
-	private Boolean active = true;
-
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "account_id")

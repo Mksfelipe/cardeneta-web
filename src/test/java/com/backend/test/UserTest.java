@@ -1,7 +1,6 @@
 package com.backend.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -35,7 +34,6 @@ class UserTest {
 		assertEquals("john.doe@example.com", user.getEmail());
 		assertEquals("password123", user.getPassword());
 		assertEquals("12345678901", user.getCpf());
-		assertTrue(user.getActive());
 		assertEquals(mockAccount, user.getAccount());
 		assertTrue(user.getRoles().contains(mockRole));
 	}
@@ -53,13 +51,6 @@ class UserTest {
 		assertTrue(user.getRoles().isEmpty());
 	}
 
-	@Test
-	void testUserEntityDeactivate() {
-		User user = new User();
-		user.setActive(false);
-
-		assertFalse(user.getActive());
-	}
 
 	@Test
 	void testValidCPF() {

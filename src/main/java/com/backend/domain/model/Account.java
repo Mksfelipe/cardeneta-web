@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.backend.domain.model.converter.BooleanConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,9 +39,6 @@ public class Account {
 
 	@CreationTimestamp
 	private LocalDateTime updated;
-
-	@Convert(converter = BooleanConverter.class)
-	private Boolean active = true;
 
 	@JsonIgnore
 	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
