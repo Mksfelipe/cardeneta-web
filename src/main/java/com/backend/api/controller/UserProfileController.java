@@ -2,6 +2,7 @@ package com.backend.api.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.api.dto.AccountDTO;
 import com.backend.api.dto.TransactionDTO;
-import com.backend.api.dto.UserWithAccountDTO;
+import com.backend.api.dto.UserDTO;
 import com.backend.domain.model.Transaction;
 import com.backend.domain.model.User;
+import com.backend.domain.service.AccountService;
 import com.backend.domain.service.TransactionService;
 import com.backend.domain.service.UserService;
 
@@ -30,16 +33,30 @@ public class UserProfileController {
 
 	@Autowired
 	private TransactionService transactionService;
+	
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping
 	@RolesAllowed("USER")
-	public UserWithAccountDTO getUserInfo() {
+	public UserDTO getUserInfo() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+		AccountDTO accountDTO = new AccountDTO();
+		
 		if (authentication != null && authentication.isAuthenticated()) {
 			User user = userService.findbyCpf(authentication.getName());
-
-			return new UserWithAccountDTO(user);
+			accountDTO.setBalanceWeek(accountService.balanceWeek(user.getId()));
+			accountDTO.setBalanceMonth(accountService.balanceMonth(user.getId()));
+			
+			
+			modelMapper.map(user.getAccount(), accountDTO);
+			UserDTO userDTO = new UserDTO(user);
+			userDTO.setAccountDTO(accountDTO);
+			
+			return userDTO;
 		}
 		return null;
 	}

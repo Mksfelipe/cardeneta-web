@@ -6,11 +6,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.backend.domain.model.converter.BooleanConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

@@ -22,6 +22,7 @@ public class UserDTO {
 	private String email;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	private AccountDTO accountDTO;
 
 	@CPF
 	@NotEmpty
