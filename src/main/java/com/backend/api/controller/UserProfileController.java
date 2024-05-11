@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class UserProfileController {
 			
 			modelMapper.map(user.getAccount(), accountDTO);
 			UserDTO userDTO = new UserDTO(user);
-			userDTO.setAccountDTO(accountDTO);
+			userDTO.setAccount(accountDTO);
 			
 			return userDTO;
 		}
@@ -63,7 +64,7 @@ public class UserProfileController {
 
 	@GetMapping("/transanctions")
 	@RolesAllowed("USER")
-	public Page<TransactionDTO> getAlltransanctions(Pageable pageable) {
+	public Page<TransactionDTO> getAlltransanctions(@PageableDefault(size = 10) Pageable pageable) {
 
 		User user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,6 +80,7 @@ public class UserProfileController {
 			return new PageImpl<>(transactionRecords, pageable, listTransactionPage.getTotalElements());
 		}
 		return null;
+		
 	}
 
 }

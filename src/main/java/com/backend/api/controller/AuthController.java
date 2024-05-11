@@ -1,7 +1,5 @@
 package com.backend.api.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,8 +26,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthController {
 	
-	private static final Logger LOG = LogManager.getLogger(AuthController.class);
-	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -41,7 +37,6 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<AuthTokenModel> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		LOG.info("Welcome to ELK demo service");
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getCpf(), loginRequest.getPassword()));
 		

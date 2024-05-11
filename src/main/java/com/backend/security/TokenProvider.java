@@ -50,6 +50,7 @@ public class TokenProvider implements Serializable {
 		return claimsResolver.apply(claims);
 	}
 
+	@SuppressWarnings("deprecation")
 	private Claims getAllClaimsFromToken(String token) {
 		return Jwts.parser().setSigningKey(SIGNING_KEY).parseClaimsJws(token).getBody();
 	}
@@ -59,6 +60,7 @@ public class TokenProvider implements Serializable {
 		return expiration.before(new Date());
 	}
 
+	@SuppressWarnings("deprecation")
 	public String generateToken(Authentication authentication) {
 		String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(","));
@@ -68,7 +70,7 @@ public class TokenProvider implements Serializable {
 		
 		return Jwts.builder().setSubject(myClinetDetails.getUsername()).claim(AUTHORITIES_KEY, authorities)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
+				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
 				.signWith(SignatureAlgorithm.HS512, SIGNING_KEY).compact();
 	}
 
@@ -80,6 +82,7 @@ public class TokenProvider implements Serializable {
 	public UsernamePasswordAuthenticationToken getAuthenticationToken(final String token,
 			final Authentication existingAuth, final UserDetails customUserDetail) {
 
+		@SuppressWarnings("deprecation")
 		final JwtParser jwtParser = Jwts.parser().setSigningKey(SIGNING_KEY);
 
 		final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);

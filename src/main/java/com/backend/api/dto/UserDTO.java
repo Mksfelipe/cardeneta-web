@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.backend.domain.model.User;
-import com.backend.domain.model.converter.BooleanConverter;
 
-import jakarta.persistence.Convert;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +20,7 @@ public class UserDTO {
 	private String email;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	private AccountDTO accountDTO;
+	private AccountDTO account;
 
 	@CPF
 	@NotEmpty
