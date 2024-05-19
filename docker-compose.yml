@@ -1,5 +1,5 @@
 services:
-  psql-db:
+  cardeneta-db:
     image: postgres
     container_name: cardeneta-db
     restart: always
@@ -10,7 +10,7 @@ services:
     ports:
       - '5432:5432'
 
-  recipe:
+  cardeneta-app:
     container_name: cardeneta-app
     build:
       context: .
