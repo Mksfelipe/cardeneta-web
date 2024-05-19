@@ -3,7 +3,6 @@
 -- Drop table
 
 -- DROP TABLE cardeneta.account;
-CREATE SCHEMA cardeneta;
 
 CREATE TABLE cardeneta.account (
     id bigserial NOT NULL,
