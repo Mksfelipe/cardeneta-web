@@ -1,5 +1,6 @@
+  GNU nano 7.2                                                                                        Dockerfile
 # Use a imagem base do OpenJDK para Java 17
-FROM adoptopenjdk/openjdk17:alpine
+FROM openjdk:17
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -13,3 +14,9 @@ ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 # Defina o comando padrão a ser executado quando o contêiner for iniciado
 CMD ["java", "-jar", "app.jar"]
+
+
+
+
+
+
