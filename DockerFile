@@ -14,9 +14,3 @@ ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 # Defina o comando padrão a ser executado quando o contêiner for iniciado
 CMD ["java", "-jar", "app.jar"]
-
-
-
-
-
-
