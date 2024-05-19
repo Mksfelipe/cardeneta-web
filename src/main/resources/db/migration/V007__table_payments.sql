@@ -6,6 +6,3 @@ CREATE TABLE cardeneta.payment (
     payment_date DATE,
     FOREIGN KEY (account_id) REFERENCES account(id)
 );
-
-
-

@@ -7,7 +7,7 @@
 CREATE TABLE cardeneta.user_roles (
     role_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    CONSTRAINT user_roles_pkey PRIMARY KEY (role_id, user_id)
+    CONSTRAINT cardeneta.user_roles_pkey PRIMARY KEY (role_id, user_id)
 );
 
 

@@ -13,15 +13,12 @@ CREATE TABLE cardeneta.users (
     cpf varchar(255) NULL,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    account_id int8 NULL,
+    account_id bigint NULL,
     CONSTRAINT users_pkey PRIMARY KEY (id),
-    CONSTRAINT users_account_id_key UNIQUE (account_id),
     CONSTRAINT users_email_key UNIQUE (email),
-    CONSTRAINT users_cpf_key UNIQUE (cpf)
+    CONSTRAINT users_cpf_key UNIQUE (cpf),
+    FOREIGN KEY (account_id) REFERENCES cardeneta.account(id)
 );
 
 
 
--- cardeneta.users foreign keys
-
-ALTER TABLE cardeneta.users ADD CONSTRAINT fk3pwaj86pwopu3ot96qlrfo2up FOREIGN KEY (account_id) REFERENCES cardeneta.account(id);
