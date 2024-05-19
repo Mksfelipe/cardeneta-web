@@ -6,11 +6,11 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copie o arquivo JAR da sua aplicação para o diretório de trabalho no contêiner
-COPY target/*.jar app.jar
+COPY target/cardeneta-web-0.0.1-SNAPSHOT.jar cardeneta-web-0.0.1-SNAPSHOT.jar
 
 # Defina as variáveis ​​de ambiente padrão, se não forem fornecidas
 ENV POSTGRES_USER=${POSTGRES_USER}
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 # Defina o comando padrão a ser executado quando o contêiner for iniciado
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "cardeneta-web-0.0.1-SNAPSHOT.jar"]
