@@ -9,7 +9,7 @@ CREATE TABLE cardeneta.user_roles (
     user_id bigint NOT NULL,
     CONSTRAINT user_roles_pkey PRIMARY KEY (role_id, user_id),
     FOREIGN KEY (role_id) REFERENCES cardeneta.roles(id),
-    FOREIGN KEY (user_id) REFERENCES cardeneta.users(id),
+    FOREIGN KEY (user_id) REFERENCES cardeneta.users(id)
 );
 
 
