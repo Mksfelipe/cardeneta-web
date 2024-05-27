@@ -25,4 +25,4 @@ services:
     depends_on:
       - cardeneta-db
     volumes:
-      - /etc/letsencrypt/live/www.felipe-sousa-dev.com/keystore.p12:/etc/letsencrypt/live/www.felipe-sousa-dev.com/keystore.p12
+      - /etc/letsencrypt/live/www.felipe-sousa-dev.com/keystore.p12:/app/
